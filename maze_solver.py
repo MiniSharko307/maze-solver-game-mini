@@ -37,10 +37,10 @@ current_direction = None
 
 # Movement directions
 directions = {
-    'UP': (0, -1),
-    'DOWN': (0, 1),
-    'LEFT': (-1, 0),
-    'RIGHT': (1, 0)
+    pygame.K_UP: (0, -1),
+    pygame.K_DOWN: (0, 1),
+    pygame.K_LEFT: (-1, 0),
+    pygame.K_RIGHT: (1, 0)
 }
 
 
@@ -90,6 +90,9 @@ create_maze(0, 0)
 while maze[goal_y][goal_x] == 1:
     goal_x, goal_y = random.randint(0, cols - 1), random.randint(0, rows - 1)
 
+# Enable key repeat for smooth movement
+pygame.key.set_repeat(100, 100)
+
 # Main game loop
 running = True
 clock = pygame.time.Clock()
@@ -107,27 +110,17 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        # Handle key press events
+
+        # Handle key presses for movement
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                current_direction = 'UP'
-            elif event.key == pygame.K_DOWN:
-                current_direction = 'DOWN'
-            elif event.key == pygame.K_LEFT:
-                current_direction = 'LEFT'
-            elif event.key == pygame.K_RIGHT:
-                current_direction = 'RIGHT'
+            if event.key in directions:
+                dx, dy = directions[event.key]
+                grid_x = player_rect.x // GRID_SIZE + dx
+                grid_y = player_rect.y // GRID_SIZE + dy
 
-    # Move the player
-    if current_direction:
-        dx, dy = directions[current_direction]
-        grid_x = player_rect.x // GRID_SIZE + dx
-        grid_y = player_rect.y // GRID_SIZE + dy
-
-        if is_valid_move(grid_x, grid_y):
-            player_rect.x += dx * player_speed
-            player_rect.y += dy * player_speed
-            current_direction = None  # Stop continuous movement after a valid step
+                if is_valid_move(grid_x, grid_y):
+                    player_rect.x += dx * GRID_SIZE
+                    player_rect.y += dy * GRID_SIZE
 
     # Check if the player has reached the goal
     if player_rect.colliderect(pygame.Rect(goal_x * GRID_SIZE, goal_y * GRID_SIZE, GRID_SIZE, GRID_SIZE)):
