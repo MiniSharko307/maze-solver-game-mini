@@ -9,7 +9,7 @@ A simple and fun Python game where the player navigates through a randomly gener
 - [Features](#features)
 - [Installation](#installation)
 - [How to Play](#how-to-play)
-- [Screenshots](#screenshots)
+- [Using Virtual Environments on macOS](#using-virtual-environments-on-macos)
 - [Ideas for Improvement](#ideas-for-improvement)
 - [License](#license)
 
@@ -48,6 +48,41 @@ A simple and fun Python game where the player navigates through a randomly gener
 1. Use the **arrow keys** (`↑`, `↓`, `←`, `→`) to move the blue player square through the maze.
 2. Reach the **red square (goal)** to win the game.
 3. Avoid walls (black squares) — you can only move through open paths (white squares).
+
+---
+
+## Using Virtual Environments on macOS
+
+Using a virtual environment is recommended on macOS to isolate dependencies and avoid system-level conflicts. Follow these steps:
+
+### 1. Create a Virtual Environment:
+```bash
+mkdir ~/.venv
+python3 -m venv ~/.venv
+```
+
+### 2. Activate the Virtual Environment:
+```bash
+source ~/.venv/bin/activate
+```
+
+### 3. Install Required Modules:
+Once the virtual environment is activated, install `pygame`:
+```bash
+python3 -m pip install pygame
+```
+
+### 4. Run the Game:
+Now you can run the game within the virtual environment:
+```bash
+python3 maze_solver.py
+```
+
+### 5. Deactivate the Virtual Environment:
+When you're done, deactivate the virtual environment:
+```bash
+deactivate
+```
 
 ---
 
